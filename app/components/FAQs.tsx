@@ -34,6 +34,7 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
         >
           Frequently Asked Questions
         </motion.h2>
@@ -47,6 +48,7 @@ const FAQSection = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.1 }}
+              viewport={{ once: true }}
             >
               <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
               {openIndex === i && <p className="text-sm text-gray-600">{faq.answer}</p>}

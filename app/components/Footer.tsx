@@ -13,7 +13,9 @@ const Footer = () => {
 					className='mb-6 flex flex-wrap justify-center gap-6'
 					initial={{ opacity: 0 }}
 					whileInView={{ opacity: 1 }}
-					transition={{ duration: 0.6 }}>
+					transition={{ duration: 0.6 }}
+					viewport={{ once: true }}
+					>
 					<a href='#home' className='hover:underline text-gray-300'>
 						Home
 					</a>
@@ -32,7 +34,9 @@ const Footer = () => {
 					className='text-xl font-bold mb-2'
 					initial={{ opacity: 0, y: 10 }}
 					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.7 }}>
+					transition={{ duration: 0.7 }}
+					viewport={{ once: true }}
+					>
 					NT Enterprise
 				</motion.h2>
 

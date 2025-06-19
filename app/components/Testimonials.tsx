@@ -45,7 +45,9 @@ const TestimonialsSection = () => {
 					className='text-4xl md:text-5xl font-bold text-center mb-12'
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8 }}>
+					transition={{ duration: 0.8 }}
+					viewport={{ once: true }}
+					>						
 					What Our Clients Say
 				</motion.h2>
 
@@ -73,7 +75,9 @@ const TestimonialsSection = () => {
 									className='bg-slate-100 rounded-xl shadow-md p-6 h-full'
 									initial={{ opacity: 0, y: 20 }}
 									whileInView={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5, delay: i * 0.1 }}>
+									transition={{ duration: 0.5, delay: i * 0.1 }}
+									viewport={{ once: true }}
+									>
 									<p className='text-gray-700 text-md mb-4 italic'>“{t.text}”</p>
 									<p className='text-md font-semibold text-emerald-600'>{t.name}</p>
 									<p className='text-sm text-gray-500'>{t.location}</p>

@@ -31,6 +31,7 @@ const ServicesSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
         >
           What We Offer
         </motion.h2>
@@ -43,6 +44,7 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
             >
               <div className="relative h-60 w-full">
                 <Image

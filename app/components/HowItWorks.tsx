@@ -34,7 +34,9 @@ const HowItWorksSection = () => (
 				className='text-4xl md:text-5xl font-bold mb-12'
 				initial={{ opacity: 0, y: 30 }}
 				whileInView={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8 }}>
+				transition={{ duration: 0.8 }}
+				viewport={{ once: true }}
+				>
 				How It Works
 			</motion.h2>
 
@@ -45,7 +47,9 @@ const HowItWorksSection = () => (
 						className='p-6 bg-slate-50 shadow rounded-lg text-center'
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: i * 0.1 }}>
+						transition={{ duration: 0.5, delay: i * 0.1 }}
+						viewport={{ once: true }}
+						>
 						<div className='text-emerald-600 mb-3'>{step.icon}</div>
 						<h3 className='text-lg font-semibold mb-2'>{step.title}</h3>
 						<p className='text-sm text-gray-600'>{step.description}</p>

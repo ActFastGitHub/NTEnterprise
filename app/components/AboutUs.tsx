@@ -15,6 +15,7 @@ const AboutUsSection = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
             <Image
               src="/about/management.jpg" // ⬅️ Real people in a meeting, team planning
@@ -29,6 +30,7 @@ const AboutUsSection = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold mb-6">Who We Are</h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-4">
