@@ -31,7 +31,7 @@ export default function PropertyCard({ property, coverSrc }: Props) {
       </div>
 
       <div className="p-4 flex flex-col gap-2">
-        <div className="text-lg font-bold tracking-tight">{property.unitType}</div>
+        <div className="text-lg font-bold tracking-tight">{property.unitType} - {property.name}</div>
         <div className="text-sm text-gray-600">{property.shortDescription}</div>
         <div className="text-xs text-gray-500">{property.address}</div>
 
