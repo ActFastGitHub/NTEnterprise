@@ -45,8 +45,10 @@ export const metadata: Metadata = {
 		locale: "en_CA",
 		type: "website"
 	},
-	themeColor: "#000000",
-	manifest: "/site.webmanifest" // Optional if you're using PWA support
+	themeColor: "#059669",
+	manifest: "/site.webmanifest", // Optional if you're using PWA support
+	// metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+
 };
 
 export default function RootLayout({
