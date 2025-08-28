@@ -159,17 +159,17 @@ export default function BookingWidget({
         {includeTaxes && nights > 0 ? (
           <>
             <div className="flex justify-between text-gray-600">
-              <span>GST (5%)</span>
+              <span>GST</span>
               <span>{formatCAD(totals.gst)}</span>
             </div>
             {totals.provincialTaxesApplied && (
               <>
                 <div className="flex justify-between text-gray-600">
-                  <span>PST (8%)</span>
+                  <span>PST</span>
                   <span>{formatCAD(totals.pst)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>MRDT (3%)</span>
+                  <span>MRDT</span>
                   <span>{formatCAD(totals.mrdt)}</span>
                 </div>
               </>
