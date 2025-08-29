@@ -1,10 +1,40 @@
-// app/(site)/properties/components/BookingWidget.tsx
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import { computeBookingTotals, formatCAD } from "../utils/pricing";
 
+/* ---------- Pricing helpers (kept local & simple) ---------- */
+type TaxMode = "GST_ONLY" | "BC_RULE";
+
+const TAX = { GST: 0.05, PST: 0.08, MRDT: 0.03 };
+
+function computeBookingTotals(nightly: number, nights: number, taxMode: TaxMode) {
+  const n = Math.max(0, nights);
+  const base = nightly * n;
+
+  if (taxMode === "GST_ONLY") {
+    const gst = base * TAX.GST;
+    return { nights: n, nightly, base, gst, pst: 0, mrdt: 0, total: base + gst, provincial: false };
+  }
+  // BC_RULE: ≤26 nights => GST+PST+MRDT; ≥27 nights => GST only
+  const provincial = n <= 26;
+  const gst = base * TAX.GST;
+  const pst = provincial ? base * TAX.PST : 0;
+  const mrdt = provincial ? base * TAX.MRDT : 0;
+  return { nights: n, nightly, base, gst, pst, mrdt, total: base + gst + pst + mrdt, provincial };
+}
+
+function taxesDescription(nights: number, taxMode: TaxMode) {
+  if (taxMode === "GST_ONLY") return "Taxes: GST (5%) only";
+  return nights <= 26
+    ? "Taxes: GST (5%) + PST (8%) + MRDT (3%)"
+    : "Taxes: GST (5%) only (stay ≥ 27 nights)";
+}
+
+const formatCAD = (v: number) =>
+  v.toLocaleString("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 2 });
+
+/* ------------------ Component ------------------ */
 function diffNights(start?: string, end?: string) {
   if (!start || !end) return 0;
   const s = new Date(start);
@@ -16,14 +46,10 @@ function diffNights(start?: string, end?: string) {
 type Props = {
   propertyName: string;     // e.g., "Townhouse Style — 96"
   propertyAddress: string;
-  nightlyPrice: number;     // property-specific nightly price (required)
+  nightlyPrice: number;     // property-specific nightly price
 };
 
-export default function BookingWidget({
-  propertyName,
-  propertyAddress,
-  nightlyPrice,
-}: Props) {
+export default function BookingWidget({ propertyName, propertyAddress, nightlyPrice }: Props) {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [name, setName] = useState("");
@@ -31,11 +57,23 @@ export default function BookingWidget({
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
 
-  // NEW: toggle to include taxes (estimate). Default OFF => straight subtotal only.
+  // Toggle for showing tax estimate (OFF by default)
   const [includeTaxes, setIncludeTaxes] = useState(false);
 
+  // Simple, build-time default from env, plus optional URL override (?tax=gst or ?tax=bc)
+  const buildMode = (process.env.NEXT_PUBLIC_TAX_MODE as TaxMode) === "BC_RULE" ? "BC_RULE" : "GST_ONLY";
+  const [taxMode, setTaxMode] = useState<TaxMode>(buildMode);
+
+  useEffect(() => {
+    // Optional quick override for testing without redeploy: /properties/96?tax=bc or ?tax=gst
+    if (typeof window === "undefined") return;
+    const p = new URLSearchParams(window.location.search).get("tax");
+    if (p === "bc") setTaxMode("BC_RULE");
+    if (p === "gst") setTaxMode("GST_ONLY");
+  }, []);
+
   const nights = useMemo(() => diffNights(startDate, endDate), [startDate, endDate]);
-  const totals = useMemo(() => computeBookingTotals(nightlyPrice, nights), [nightlyPrice, nights]);
+  const totals = useMemo(() => computeBookingTotals(nightlyPrice, nights, taxMode), [nightlyPrice, nights, taxMode]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -57,13 +95,9 @@ export default function BookingWidget({
     lines.push(`Subtotal: ${formatCAD(totals.base)}`);
 
     if (includeTaxes && nights > 0) {
-      lines.push(
-        totals.provincialTaxesApplied
-          ? "Taxes: GST (5%) + PST (8%) + MRDT (3%)"
-          : "Taxes: GST (5%) only (stay ≥ 27 nights)"
-      );
+      lines.push(taxesDescription(nights, taxMode));
       lines.push(`GST: ${formatCAD(totals.gst)}`);
-      if (totals.provincialTaxesApplied) {
+      if (totals.provincial) {
         lines.push(`PST: ${formatCAD(totals.pst)}`);
         lines.push(`MRDT: ${formatCAD(totals.mrdt)}`);
       }
@@ -79,12 +113,7 @@ export default function BookingWidget({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          message: finalMessage,
-          category: "Booking Inquiry",
-        }),
+        body: JSON.stringify({ name, email, message: finalMessage, category: "Booking Inquiry" }),
       });
 
       if (!res.ok) throw new Error("Failed to send message");
@@ -105,7 +134,7 @@ export default function BookingWidget({
       <div className="flex items-end justify-between gap-4">
         <div>
           <div className="text-2xl font-extrabold">{formatCAD(nightlyPrice)}</div>
-          <div className="text-xs text-gray-500">per night + applicable taxes</div>
+          <div className="text-xs text-gray-500">per night</div>
         </div>
       </div>
 
@@ -159,17 +188,17 @@ export default function BookingWidget({
         {includeTaxes && nights > 0 ? (
           <>
             <div className="flex justify-between text-gray-600">
-              <span>GST</span>
+              <span>GST (5%)</span>
               <span>{formatCAD(totals.gst)}</span>
             </div>
-            {totals.provincialTaxesApplied && (
+            {totals.provincial && (
               <>
                 <div className="flex justify-between text-gray-600">
-                  <span>PST</span>
+                  <span>PST (8%)</span>
                   <span>{formatCAD(totals.pst)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>MRDT</span>
+                  <span>MRDT (3%)</span>
                   <span>{formatCAD(totals.mrdt)}</span>
                 </div>
               </>
@@ -178,11 +207,7 @@ export default function BookingWidget({
               <span>Total</span>
               <span>{formatCAD(totals.total)}</span>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
-              {totals.provincialTaxesApplied
-                ? "Stays of 26 nights or less include GST, PST, and MRDT."
-                : "Stays of 27 nights or more are GST-only (no PST/MRDT)."}
-            </p>
+            <p className="text-xs text-gray-500 mt-2">{taxesDescription(nights, taxMode)}</p>
           </>
         ) : (
           <>
