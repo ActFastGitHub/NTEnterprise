@@ -41,7 +41,7 @@ const Footer = () => {
 				</motion.h2>
 
 				<p className='text-sm text-gray-400'>&copy; {currentYear} NT Enterprise. All rights reserved.</p>
-				<p className='text-xs text-gray-400 mt-1'>Built & Maintained by <strong>Angelo Guerra</strong></p>
+				<p className='text-xs text-gray-400 mt-1'>Built & Maintained by <strong>J.A.G.</strong></p>
 			</div>
 		</footer>
 	);
