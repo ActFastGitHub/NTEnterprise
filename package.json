@@ -17,7 +17,7 @@
     "cookies-next": "^5.1.0",
     "date-holidays": "^3.23.22",
     "framer-motion": "^12.4.7",
-    "next": "^15.1.7",
+    "next": "15.1.11",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
