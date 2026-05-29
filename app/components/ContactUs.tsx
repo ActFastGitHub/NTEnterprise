@@ -360,7 +360,7 @@ const ContactSection = () => {
 								</div>
 								<div>
 									<p className='text-sm text-gray-500 font-medium'>Call Us</p>
-									<p className='text-lg font-semibold text-gray-800'>778-769-2471</p>
+									<p className='text-lg font-semibold text-gray-800'>604-409-8444</p>
 								</div>
 							</div>
 						</a>
