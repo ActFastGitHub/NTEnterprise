@@ -1,5 +1,6 @@
 // components/Footer.tsx
 "use client";
+import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -28,6 +29,15 @@ const Footer = () => {
 					<a href='#contact' className='hover:underline text-gray-300'>
 						Contact
 					</a>
+					<Link href='/privacy-policy' className='hover:underline text-gray-300'>
+						Privacy Policy
+					</Link>
+					<Link href='/cookie-policy' className='hover:underline text-gray-300'>
+						Cookie Policy
+					</Link>
+					<Link href='/terms-of-use' className='hover:underline text-gray-300'>
+						Terms of Use
+					</Link>
 				</motion.div>
 
 				<motion.h2
