@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 	description: "How NT Enterprise collects, uses, protects, and manages personal information."
 };
 
-const updatedDate = "July 8, 2026";
+const updatedDate = "July 13, 2026";
 
 export default function PrivacyPolicyPage() {
 	return (
@@ -36,10 +36,10 @@ export default function PrivacyPolicyPage() {
 						<h2 className='text-2xl font-bold text-gray-900'>Personal Information We Collect</h2>
 						<p className='mt-3'>
 							We collect information you choose to provide, such as your name, email address, phone number,
-							message details, booking inquiry details, testimonial text, and optional location information.
-							We may also receive basic technical information from your browser or hosting provider, such as
-							IP address, device information, pages visited, and timestamps, where needed to operate and
-							secure the website.
+							SMS or text message details, booking inquiry details, testimonial text, and optional location
+							information. We may also receive basic technical information from your browser or hosting
+							provider, such as IP address, device information, pages visited, and timestamps, where needed
+							to operate and secure the website.
 						</p>
 					</section>
 
@@ -47,8 +47,9 @@ export default function PrivacyPolicyPage() {
 						<h2 className='text-2xl font-bold text-gray-900'>How We Use Personal Information</h2>
 						<p className='mt-3'>
 							We use personal information to respond to inquiries, provide rental and property management
-							information, process booking-related requests, review testimonial submissions, maintain website
-							security, troubleshoot website issues, and keep reasonable business records.
+							information, process booking-related requests, communicate by phone or SMS when appropriate,
+							review testimonial submissions, maintain website security, troubleshoot website issues, and keep
+							reasonable business records.
 						</p>
 					</section>
 
@@ -59,6 +60,20 @@ export default function PrivacyPolicyPage() {
 							purpose described at the time of collection. You may withdraw consent, request access to your
 							personal information, or ask us to correct or delete it, subject to legal and business record
 							requirements.
+						</p>
+					</section>
+
+					<section>
+						<h2 className='text-2xl font-bold text-gray-900'>SMS and Text Messaging</h2>
+						<p className='mt-3'>
+							If you provide a phone number, NT Enterprise may use it to respond to your inquiry, coordinate
+							services, discuss booking or property management matters, or follow up on a request you made.
+							Text messaging is not required to use our services, and message and data rates may apply.
+						</p>
+						<p className='mt-3'>
+							You can ask us to stop sending text messages at any time by replying with a clear opt-out
+							request or by contacting us directly. We do not sell phone numbers or SMS consent, and we do not
+							share them with third parties for their own marketing.
 						</p>
 					</section>
 
@@ -79,9 +94,9 @@ export default function PrivacyPolicyPage() {
 						<h2 className='text-2xl font-bold text-gray-900'>Service Providers and Disclosure</h2>
 						<p className='mt-3'>
 							We may share personal information with service providers that help operate the website, send
-							email, host data, manage databases, or provide related business support. We do not sell personal
-							information. We may disclose information if required by law, to protect our rights, or to
-							complete a business transaction involving NT Enterprise.
+							email or SMS messages, host data, manage databases, or provide related business support. We do
+							not sell personal information. We may disclose information if required by law, to protect our
+							rights, or to complete a business transaction involving NT Enterprise.
 						</p>
 					</section>
 
