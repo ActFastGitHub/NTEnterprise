@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
 
-    const { name, email, category, message } = data;
+    const { name, email, phone, category, message, smsConsent } = data;
 
     if (!name || !email || !category || !message) {
       return NextResponse.json(
@@ -36,6 +36,8 @@ export async function POST(req: Request) {
 
 Full Name: ${name}
 Email Address: ${email}
+Phone Number: ${phone || "Not provided"}
+SMS Consent: ${smsConsent ? "Yes" : "No"}
 Category: ${category}
 
 Message:

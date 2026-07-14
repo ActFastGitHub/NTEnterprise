@@ -68,12 +68,20 @@ export default function PrivacyPolicyPage() {
 						<p className='mt-3'>
 							If you provide a phone number, NT Enterprise may use it to respond to your inquiry, coordinate
 							services, discuss booking or property management matters, or follow up on a request you made.
-							Text messaging is not required to use our services, and message and data rates may apply.
+							When you opt in to SMS/text messaging through our website form, you are consenting to receive
+							text messages from NT Enterprise related to your inquiry or service relationship. Text messaging
+							is not required to use our services.
 						</p>
 						<p className='mt-3'>
-							You can ask us to stop sending text messages at any time by replying with a clear opt-out
-							request or by contacting us directly. We do not sell phone numbers or SMS consent, and we do not
-							share them with third parties for their own marketing.
+							Message frequency varies depending on your inquiry, booking, or property management matter.
+							Message and data rates may apply. You can ask us to stop sending text messages at any time by
+							replying with a clear opt-out request or by contacting us directly. You can request assistance
+							with SMS communications by contacting us directly. Where supported by the messaging provider,
+							you may also reply STOP to opt out or HELP for assistance.
+						</p>
+						<p className='mt-3'>
+							We do not sell phone numbers or SMS consent, and we do not share them with third parties for
+							their own marketing.
 						</p>
 					</section>
 

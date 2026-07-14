@@ -225,6 +225,7 @@
 // export default ContactSection;
 
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
@@ -280,11 +281,18 @@ const ContactSection = () => {
 
 		const name = formData.get("contact-name")?.toString().trim();
 		const email = formData.get("contact-email")?.toString().trim();
+		const phone = formData.get("contact-phone")?.toString().trim() || "";
 		const message = formData.get("contact-message")?.toString().trim();
 		const category = formData.get("contact-category")?.toString() || "Booking Inquiry";
+		const smsConsent = formData.get("sms-consent") === "on";
 
 		if (!name || !email || !message) {
 			toast.error("Please fill out all required fields.");
+			return;
+		}
+
+		if (smsConsent && !phone) {
+			toast.error("Please enter your phone number to opt in to SMS updates.");
 			return;
 		}
 
@@ -294,7 +302,7 @@ const ContactSection = () => {
 				headers: {
 					"Content-Type": "application/json"
 				},
-				body: JSON.stringify({ name, email, message, category })
+				body: JSON.stringify({ name, email, phone, message, category, smsConsent })
 			});
 
 			if (res.ok) {
@@ -406,6 +414,12 @@ const ContactSection = () => {
 							required
 							className='w-full p-3 rounded-lg border border-gray-300'
 						/>
+						<input
+							type='tel'
+							name='contact-phone'
+							placeholder='Phone Number (optional)'
+							className='w-full p-3 rounded-lg border border-gray-300'
+						/>
 
 						<select
 							name='contact-category'
@@ -422,6 +436,25 @@ const ContactSection = () => {
 							rows={5}
 							required
 							className='w-full p-3 rounded-lg border border-gray-300'></textarea>
+
+						<label className='flex gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4 text-left text-sm leading-6 text-gray-700'>
+							<input
+								type='checkbox'
+								name='sms-consent'
+								className='mt-1 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-600'
+							/>
+							<span>
+								I agree to receive SMS/text messages from NT Enterprise about my inquiry, booking, or
+								service request. Message frequency varies. Message and data rates may apply. My phone
+								number and SMS consent will not be sold or shared for third-party marketing. I can ask
+								NT Enterprise to stop texting me at any time. Where supported by the messaging provider,
+								I may reply STOP to opt out or HELP for assistance. See our{" "}
+								<Link href='/privacy-policy' className='font-semibold text-emerald-700 hover:text-emerald-800'>
+									Privacy Policy
+								</Link>
+								.
+							</span>
+						</label>
 
 						<button
 							type='submit'
