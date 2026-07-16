@@ -50,6 +50,7 @@ const Footer = () => {
 					NT Enterprise
 				</motion.h2>
 
+				<p className='text-sm text-gray-400'>13900 Hyland Rd, Surrey, BC V3W 1K4</p>
 				<p className='text-sm text-gray-400'>&copy; {currentYear} NT Enterprise. All rights reserved.</p>
 				<p className='text-xs text-gray-400 mt-1'>Built & Maintained by <strong>J.A.G.</strong></p>
 			</div>
